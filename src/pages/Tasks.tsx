@@ -74,8 +74,7 @@ export default function Tasks() {
         </form>
 
         <div className="task-list">
-          {tasks.forEach([task, ] => function () {
-          })}
+          <div>Aqui aparecerão as tasks</div>
         </div>
       </main>
     </div>
