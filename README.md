@@ -26,7 +26,7 @@ $ git clone https://github.com/fsclaro/atl-front.git
 Passo 2: Entre na pasta do projeto:
 
 ```bash
-$ cd alt-front
+$ cd atl-front
 ```
 
 Passo 3: Inicie o projeto conforme os passos descritos abaixo:
@@ -35,7 +35,6 @@ Passo 3: Inicie o projeto conforme os passos descritos abaixo:
 # Instalar as dependências
 $ yarn
 ```
-O app estará disponível no seu browser pelo endereço http://localhost:3000.
 
 ## 💻 Configuração
 
@@ -48,6 +47,7 @@ Inicie o projeto conforme o passo descrito abaixo:
 ```bash
 $ yarn start
 ```
+O app estará disponível no seu browser pelo endereço http://localhost:3000.
 
 ## 📝 Licença
 
