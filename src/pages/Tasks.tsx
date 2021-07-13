@@ -45,8 +45,6 @@ export default function Tasks() {
       })
   }
 
-  console.log(tasks);
-
   return (
     <div id="page-room" onLoad={getAllTasks}>
       <header>
