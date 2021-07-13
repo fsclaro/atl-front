@@ -1,4 +1,4 @@
-<h1 align="center">Advanced TODO List - API Module</h1>
+<h1 align="center">Advanced TODO List - Front-End Module</h1>
 
 <p align="center">
   <img alt="License" src="https://img.shields.io/static/v1?label=license&message=MIT&color=8257E5&labelColor=000000">
@@ -10,26 +10,23 @@
 
 Para este projeto, foram utilizadas as seguintes tecnologias:
 
-* Node.js
+* ReactJS
 * Typescript
-* Express
-* JSONWebToken
-* Mongoose
 * bcryptjs
-
+* Axios
 
 ## 🚀 Como executar
 
 Passo 1: Faça a clonagem do projeto com o comando abaixo:
 
 ```bash
-$ git clone https://github.com/fsclaro/atl-api.git
+$ git clone https://github.com/fsclaro/atl-front.git
 ```
 
 Passo 2: Entre na pasta do projeto:
 
 ```bash
-$ cd alt-api
+$ cd alt-front
 ```
 
 Passo 3: Inicie o projeto conforme os passos descritos abaixo:
@@ -38,15 +35,13 @@ Passo 3: Inicie o projeto conforme os passos descritos abaixo:
 # Instalar as dependências
 $ yarn
 ```
-O app estará disponível no seu browser pelo endereço http://localhost:3005.
+O app estará disponível no seu browser pelo endereço http://localhost:3000.
 
 ## 💻 Configuração
 
 1. Copiar o arquivo _.env.example_ para _.env_
-2. Abrir o arquivo _.env_ no seu editor de textos preferido
-3. Configurar os parâmetros conforme orientações.
 
-## 💻 Subindo a API
+## 💻 Subindo o Front
 
 Inicie o projeto conforme o passo descrito abaixo:
 
