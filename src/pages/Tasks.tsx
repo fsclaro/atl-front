@@ -1,6 +1,6 @@
-import { useState } from 'react'
-import { Link } from 'react-router-dom'
-import cx from 'classnames'
+import { FormEvent, useState } from 'react'
+import { ReactNode } from 'react'
+import { Link, useHistory } from 'react-router-dom'
 
 import api from '../api'
 
@@ -17,21 +17,22 @@ export default function Tasks() {
   const [userId, setUserId] = useState<String | null>('')
   const [userName, setUserName] = useState<String | null>('')
   const [userEmail, setUserEmail] = useState<String | null>('')
+  const [newTask, setNewTask] = useState('');
+
+  const user_id = localStorage.getItem('user_id')
+  const user_name = localStorage.getItem('user_name')
+  const user_email = localStorage.getItem('user_email')
+  const token = localStorage.getItem('token')
+  const authStr = 'Bearer ' + token
+
+  const history = useHistory()
 
   async function getAllTasks() {
-    const user_id = localStorage.getItem('user_id')
-    const user_name = localStorage.getItem('user_name')
-    const user_email = localStorage.getItem('user_email')
-    const token = localStorage.getItem('token')
-
-    const authStr = 'Bearer ' + token
-
     await api
       .get('/tasks', { headers: { Authorization: authStr } })
       .then((response) => {
         if (response.data.tasks) {
           const tasks = response.data.tasks;
-          console.log(tasks);
           setTasks(tasks)
           setUserId(user_id)
           setUserName(user_name)
@@ -42,6 +43,36 @@ export default function Tasks() {
         console.log({ error: error.message })
       })
   }
+
+  async function handleSendTask(event: FormEvent) {
+    event.preventDefault()
+
+    if (newTask.trim() === '') {
+      alert('Você não digitou uma nova tarefa.')
+      return
+    }
+
+    const task = {
+      title: newTask,
+      completedAt: false,
+      completedUntil: null,
+      assignedTo: userId
+    }
+
+    await api
+      .post('/tasks', task, { headers: { Authorization: authStr } })
+      .then((response) => {
+        if (response.data.task) {
+          alert('Tarefa cadastrada com sucesso!!')
+          setNewTask('')
+          window.location.reload();
+        }
+      })
+      .catch((error) => {
+        console.log({ error: error.message })
+      })
+  }
+
 
   return (
     <div id="page-room" onLoad={getAllTasks}>
@@ -58,8 +89,12 @@ export default function Tasks() {
           <span>{tasks.length} tarefas(s)</span>
         </div>
 
-        <form>
-          <textarea placeholder="Descreva os detalhes da tarefa..." />
+        <form onSubmit={handleSendTask}>
+          <textarea
+            placeholder="Descreva os detalhes da tarefa..."
+            onChange={(event) => setNewTask(event.target.value)}
+            value={newTask}
+          />
           <div className="form-footer">
             <div className="user-info">
               <img src={userImg} />
