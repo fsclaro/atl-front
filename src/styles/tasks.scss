@@ -43,12 +43,14 @@
 
       .user {
         display: flex;
+        flex: 2;
         align-items: center;
 
-        img {
+        .gravatar {
           width: 45px;
           height: 45px;
           margin-right: 8px;
+          border-radius: 100%;
         }
         span {
           font-size: 16px;
@@ -62,6 +64,7 @@
 
       .tasks {
         display: flex;
+        flex: 1;
         align-items: center;
         flex-direction: row-reverse;
 
@@ -153,6 +156,24 @@
       }
     }
 
+    .tools {
+      background: #ececec;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+      padding: 24px;
+      margin-bottom: 16px;
+      margin-top: 16px;
+      display: flex;
+      font-size: 14px;
+
+      .filter {
+        flex: 3;
+      }
+
+      .order {
+        flex: 2;
+      }
+    }
     .task-list {
       margin-top: 38px;
     }

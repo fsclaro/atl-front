@@ -1,7 +1,8 @@
 import React, { FormEvent, useState, ChangeEvent } from 'react'
 import { Link } from 'react-router-dom'
 import toast, { Toaster } from 'react-hot-toast'
-import { TextField, TextareaAutosize, NativeSelect } from '@material-ui/core'
+import { TextField, TextareaAutosize, NativeSelect, Radio } from '@material-ui/core'
+import Gravatar from 'react-gravatar'
 
 import api from '../api'
 
@@ -9,7 +10,6 @@ import { Button } from '../components/Button'
 import TaskItems from '../components/TaskItems'
 
 import logoImg from '../assets/img/fig01.png'
-import userImg from '../assets/img/user.png'
 
 import '../styles/tasks.scss'
 
@@ -21,6 +21,8 @@ export default function Tasks() {
   const [userId, setUserId] = useState<String | null>('')
   const [userName, setUserName] = useState<String | null>('')
   const [userEmail, setUserEmail] = useState<String | null>('')
+  const [filter, setFilter] = useState('all')
+
   const user_id = localStorage.getItem('user_id')
   const user_name = localStorage.getItem('user_name')
   const user_email = localStorage.getItem('user_email')
@@ -39,6 +41,36 @@ export default function Tasks() {
     setUntilDate(new Date(untilDate).toString())
   }
 
+  const handleFilter = (event: ChangeEvent<{ value: unknown }>) => {
+    const filtro = event.target.value as string
+
+    if (filtro === 'all') {
+      getAllTasks()
+    } else {
+      getLast10Tasks()
+    }
+    setFilter(filtro)
+  }
+
+  async function getLast10Tasks() {
+    await api
+      .get('/tasks?count=10', { headers: { Authorization: authStr } })
+      .then((response) => {
+        if (response.data.tasks) {
+          const tasks = response.data.tasks
+          setTasks(tasks)
+          setUserId(user_id)
+          setUserName(user_name)
+          setUserEmail(user_email)
+          setUntilDate(untilDate)
+          setGroup(group)
+        }
+      })
+      .catch((error) => {
+        console.log({ error: error.message })
+      })
+  }
+
   async function getAllTasks() {
     await api
       .get('/tasks', { headers: { Authorization: authStr } })
@@ -51,6 +83,7 @@ export default function Tasks() {
           setUserEmail(user_email)
           setUntilDate(untilDate)
           setGroup(group)
+          setFilter('all')
         }
       })
       .catch((error) => {
@@ -119,8 +152,13 @@ export default function Tasks() {
       <main className="content">
         <div className="room-title">
           <div className="user">
-            <img src={userImg} />
-            <span>Olá, <span>{userName}</span></span>
+            <Gravatar email={userEmail?.toString()} size={45} rating="pg" default="mp" className="gravatar" />
+            <span>
+              Olá,{' '}
+              <span>
+                {userName}
+              </span>
+            </span>
           </div>
 
           <div className="tasks">
@@ -146,6 +184,7 @@ export default function Tasks() {
             }}
             onChange={handleUntilDate}
           />
+
           <NativeSelect
             onChange={handleChangeGroup}
             inputProps={{
@@ -168,6 +207,34 @@ export default function Tasks() {
             <Button type="submit">Cadastrar</Button>
           </div>
         </form>
+
+        <div className="tools">
+          <div className="filter">
+            Filtro de Tarefas:
+            <Radio
+              checked={filter === 'all'}
+              onChange={handleFilter}
+              value="all"
+              name="filter"
+              color="primary"
+              inputProps={{
+                'aria-label': 'Todas as tarefas'
+              }}
+            />{' '}
+            Todas
+            <Radio
+              checked={filter === 'last10'}
+              onChange={handleFilter}
+              value="last10"
+              name="filter"
+              color="secondary"
+              inputProps={{
+                'aria-label': 'Todas as tarefas'
+              }}
+            />{' '}
+            Últimas 10
+          </div>
+        </div>
 
         <div className="task-list">
           {tasks.map(function (task: any, index: number) {
