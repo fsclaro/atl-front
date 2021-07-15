@@ -139,9 +139,9 @@ export default function Tasks() {
         <div className="content">
           <img src={logoImg} alt="Advanced TODO List" />
           <div>
-            <Link className="link" to="/metrics">
+            {/* <Link className="link" to="/metrics">
               Métricas
-            </Link>
+            </Link> */}
             <Link className="link" to="/">
               Logout
             </Link>
