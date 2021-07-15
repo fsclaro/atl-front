@@ -1,115 +1,93 @@
 .task-item {
   background: #fefefe;
-  border-radius: 8px;
+  border-radius: 16px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
   padding: 24px;
   margin-bottom: 16px;
-  margin-top: 16px;
 
   & + .task-item {
-    margin-top: 8px;
+    margin-top: 16px;
   }
 
-
-  &.highlighted {
-    background: #f4f0ff;
-    border: 2px solid #835afd;
-
-    footer .user-info span {
-      color: #29292e;
-    }
-  }
-
-  &.answered {
-    background: #dbdcdd;
-  }
-  p {
+  .title {
     color: #29292e;
+    font-weight: 500;
+  }
+
+  .separator {
+    font-size: 14px;
+    color: #a8a8b3;
+
+    margin: 32px 0px 8px 0px;
+    display: flex;
+    align-items: center;
+
+    &::before {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: #a8a8b3;
+      margin-right: 16px;
+    }
+
+    &::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: #a8a8b3;
+      margin-left: 16px;
+    }
   }
 
   footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 24px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-column-gap: 18px;
+    grid-row-gap: 1px;
+    margin-bottom: 16px;
 
-    .user-info {
-      display: flex;
-      align-items: center;
-
-      img {
-        width: 32px;
-        height: 32px;
-      }
-
-      .task-closed {
-          display: inline-block;
-          border-radius: 5px;
-          color: white;
-          margin-left: 8px;
-          background: rgb(42, 182, 42);
-          padding: 8px;
-          width: 90px;
-      }
-
-      .task-opened {
-          display: inline-block;
-          border-radius: 5px;
-          width: 90px;
-          color: white;
-          margin-left: 8px;
-          background: rgb(221, 70, 70);
-          padding: 8px;
-      }
-
-      .user-name {
-          color: #835afd;
-          margin-left: 8px;
-          font-weight: 500;
-      }
-
-      .created-at {
-          color: #835afd;
-          margin-left: 8px;
-          font-weight: 500;
-      }
-
-      > span {
-        margin-left: 8px;
-        color: #29292e;
-        font-weight: 500;
+    .detail {
+      span {
         font-size: 14px;
+
+        .data {
+          color: #835afd;
+          font-weight: 500;
+          margin-left: 8px;
+        }
+
+        .task-closed {
+          color: #835afd;
+          font-weight: 500;
+          margin-left: 8px;
+        }
+
+        .task-opened {
+          color: rgb(68, 195, 46);
+          width: 90px;
+          font-weight: 500;
+          margin-left: 8px;
+        }
       }
     }
+  }
 
-    > div {
-      display: flex;
-      gap: 16px;
-    }
+  .buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
 
     button {
       border: 0;
       background: transparent;
       cursor: pointer;
       transition: filter 0.2s;
-
-      &.like-button {
-        display: flex;
-        align-items: flex-end;
-        color: #737380;
-        gap: 8px;
-
-        &.liked {
-          color:#835afd;
-
-          svg path {
-            stroke: #835afd;
-          }
-        }
-      }
+      margin-left: 16px;
 
       &:hover {
-        filter: brightness(0.5);
+        svg path {
+          stroke-width: 2.5px;
+        }
       }
     }
   }
